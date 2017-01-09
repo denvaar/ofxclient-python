@@ -1,0 +1,18 @@
+{  
+    "discover":{  
+        "bootstrap_url":"https://ofx.discovercard.com/",
+        "fi_name":"Discover Card",
+        "fi_org":"Discover Financial Services",
+        "fi_id":"7101",
+        "app_id":"QWIN",
+        "app_ver":"2300"
+    },
+    "amex":{  
+        "fi_name":"American Express",
+        "fi_org":"AMEX",
+        "fi_id":"3101",
+        "bootstrap_url":"https://online.americanexpress.com/myca/ofxdl/desktop/desktopDownload.do?request_type=nl_ofxdownload",
+        "app_id":"QWIN",
+        "app_ver":"2300"
+    }
+}
