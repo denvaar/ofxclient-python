@@ -4,8 +4,7 @@ import uuid
 import json
 from datetime import datetime
 
-from ofxtemplates import OFXTemplates
-
+from .ofxtemplates import OFXTemplates
 
 
 class OFXClient(object):
