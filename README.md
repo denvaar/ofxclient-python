@@ -8,5 +8,13 @@ This is a Python API, and also a command-line interface for interacting with OFX
 
 # Installation
 
+*TODO pip install*
+
+*TODO pyinstaller download*
+
+## Development
+Just grab a copy the repository and pip install the requirements found in `requirements.txt`.
+
 # Usage
 
+*TODO examples*
