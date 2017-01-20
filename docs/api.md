@@ -18,14 +18,11 @@ Constructor
 | fi  | `string` indicating a financial institution.  |
 | userid  | `string` indicating the user's id.  |
 | userpass  | `string` indicating the user's password.  |
-| account_number  | `string` indicating the user's account number.  |
+| acctid  | `string` indicating the user's account number.  |
 
-#### Optional arguments (passed in as `**kwargs`)
-
-- `acctid`: Account/credit card number
 
 ### get_transactions 
-Returns a list of cred card transactions.
+Returns a list of credit card transactions.
 
 #### Required arguments
 

@@ -10,14 +10,13 @@ from .ofxtemplates import OFXTemplates
 class OFXClient(object):
     """Client for making requests to an OFX server"""
 
-    def __init__(self, fi, *args, **kwargs):
+    def __init__(self, fi, userid, userpass, *args, **kwargs):
         with open('fi_data.json') as fi_data_file:
             self.fi_data = json.load(fi_data_file)
         self.ofx_templates = OFXTemplates()
 
-        self.userid = kwargs.pop('userid', None)
-        self.userpass = kwargs.pop('userpass', None)
-        self.account_number = kwargs.pop('account_number', None)
+        self.userid = userid
+        self.userpass = userpass
         self.acctid = kwargs.pop('acctid', None)
         self.fi = fi
         self.server_url = self.fi_data[fi]['bootstrap_url']
@@ -52,7 +51,6 @@ class OFXClient(object):
             "Content-type": "application/x-ofx",
             "Accept": "*/*, application/x-ofx"
         }
-        # print(data.encode())
         request_obj = request.Request(
             self.fi_data[self.fi]['bootstrap_url'],
             data.encode(),
