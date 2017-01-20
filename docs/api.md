@@ -8,7 +8,7 @@ There are two main public-facing classes to work with: `OFXClient` and `OFXParse
 from ofxclient.ofxclient import OFXClient
 ```
 
-### \_\_init\_\_
+### :star: \_\_init\_\_
 Constructor
 
 #### Required arguments
@@ -21,7 +21,7 @@ Constructor
 | acctid  | `string` indicating the user's account number.  |
 
 
-### get_transactions 
+### :star: get_transactions 
 Returns a list of credit card transactions.
 
 #### Required arguments
