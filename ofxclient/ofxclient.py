@@ -4,14 +4,14 @@ import uuid
 import json
 from datetime import datetime
 
-from .ofxtemplates import OFXTemplates
+from ofxtemplates import OFXTemplates
 
 
 class OFXClient(object):
     """Client for making requests to an OFX server"""
 
     def __init__(self, fi, userid, userpass, *args, **kwargs):
-        with open('fi_data.json') as fi_data_file:
+        with open('../fi_data.json') as fi_data_file:
             self.fi_data = json.load(fi_data_file)
         self.ofx_templates = OFXTemplates()
 
