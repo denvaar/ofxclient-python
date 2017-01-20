@@ -37,7 +37,7 @@ class OFXParser(object):
                     transaction[key] = child.text
             if self.apply_filters(transaction, **filters):
                 transaction_data.append(transaction)
-        return transaction_data
+        return json.dumps(transaction_data)
 
     def apply_filters(self, mapping, **filters):
         for key, filter_condition in filters.items():
