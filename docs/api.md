@@ -36,3 +36,21 @@ Returns a list of credit card transactions.
 
 
 ## OFXParser
+
+```python
+from ofxclient.ofxparser import OFXParser
+```
+
+### :star: as_json
+Format `data` as JSON-encoded string.
+
+#### Required arguments
+
+| Argument  | Description |
+| ------------- | ------------- |
+| data  | `str` of OFX-formatted data to turn to JSON.  |
+
+#### Optional arguments
+
+- `pretty`: Format the keys in a more readable way (default False).
+- `**filters`: Dictionary of functions, mapped to keys to filter the data.
