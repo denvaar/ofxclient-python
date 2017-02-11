@@ -1,7 +1,7 @@
 import re
 
 
-class OFXTemplates(object):
+class OFXTemplate(object):
     """Methods to help form reusable and composable OFX requests"""
 
     def xml_header(self):

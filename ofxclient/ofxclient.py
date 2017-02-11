@@ -3,17 +3,23 @@ from urllib.request import HTTPError
 import uuid
 import json
 from datetime import datetime
+import pkg_resources
 
-from ofxtemplates import OFXTemplates
+from .ofxtemplates import OFXTemplate
 
 
 class OFXClient(object):
     """Client for making requests to an OFX server"""
 
     def __init__(self, fi, userid, userpass, *args, **kwargs):
-        with open('../fi_data.json') as fi_data_file:
-            self.fi_data = json.load(fi_data_file)
-        self.ofx_templates = OFXTemplates()
+        
+        resource_package = __name__
+        resource_path = '/fi_data.json'
+        fi_data_stream = pkg_resources.resource_stream(
+            resource_package, resource_path).read().decode()
+
+        self.fi_data = json.loads(fi_data_stream)
+        self.ofx_templates = OFXTemplate()
 
         self.userid = userid
         self.userpass = userpass

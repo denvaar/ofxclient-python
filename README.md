@@ -10,7 +10,7 @@ This is a Python API, and also a command-line interface for interacting with OFX
 
 # Installation
 
-*TODO pip install*
+pip install ofxclient-python==0.0.5
 
 *TODO pyinstaller download*
 

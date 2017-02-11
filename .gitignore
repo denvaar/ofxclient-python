@@ -1,4 +1,7 @@
+.DS_STORE
 *.swp
 *.pyc
 /venv
-
+/build
+/dist
+*.egg-info
