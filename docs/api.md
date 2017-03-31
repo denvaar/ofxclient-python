@@ -2,7 +2,7 @@
 ofxclient-python provides a rich API for interacting with OFX servers which can be added to your Python application.
 There are two main public-facing classes to work with: `OFXClient` and `OFXParser`.
 
-## OFXClient
+## :dollar: OFXClient
 
 ```python
 from ofxclient.ofxclient import OFXClient
@@ -35,7 +35,7 @@ Returns a list of credit card transactions.
 - `acctid`: Account/credit card number
 
 
-## OFXParser
+## :dollar: OFXParser
 
 ```python
 from ofxclient.ofxparser import OFXParser
