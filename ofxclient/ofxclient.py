@@ -1,5 +1,7 @@
 from urllib import request
 from urllib.request import HTTPError
+from urllib.parse import splittype, splithost
+from http.client import HTTPSConnection
 import uuid
 import json
 from datetime import datetime
@@ -53,21 +55,23 @@ class OFXClient(object):
     def make_request(self, data):
         """Perform OFX request to server"""
 
-        http_headers = {
-            "Content-type": "application/x-ofx",
-            "Accept": "*/*, application/x-ofx"
-        }
-        request_obj = request.Request(
-            self.fi_data[self.fi]['bootstrap_url'],
-            data.encode(),
-            http_headers
-        )
-        try:
-            response = request.urlopen(request_obj)
-            return response.read()
-        except HTTPError as e:
-            print(e.info(), e.read())
-            raise
+        server_full_path = self.fi_data[self.fi]['bootstrap_url']
+        server_fqdn = server_full_path.strip('/').split('//')[1]
+        
+        _, path = splittype(server_full_path)
+        _, selector = splithost(path)
+        
+        h = HTTPSConnection(server_fqdn)
+        h.putrequest('POST', selector, skip_host=True,
+                     skip_accept_encoding=True)
+        h.putheader('Content-Type', 'application/x-ofx')
+        h.putheader('Host', server_fqdn)
+        h.putheader('Content-Length', len(data))
+        h.putheader('Connection', 'Keep-Alive')
+        h.endheaders(data.encode()) 
+        
+        res = h.getresponse()
+        return res.read().decode('ascii', 'ignore')
 
     def get_transactions(self, start_date, **kwargs):
         """Return list of credit card transactions"""
