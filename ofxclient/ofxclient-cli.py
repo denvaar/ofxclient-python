@@ -31,5 +31,7 @@ if __name__ == '__main__':
     if args.transactions:
         start_date = datetime.strptime(args.transactions, '%Y%m%d')
         data = client.get_transactions(start_date)
-        pprint(OFXParser().as_json(data, pretty=True))
+
+        if data is not None:
+            pprint(OFXParser().as_json(data, pretty=True))
 
