@@ -71,6 +71,11 @@ class OFXClient(object):
         h.endheaders(data.encode()) 
         
         res = h.getresponse()
+
+        if res.status == 403:
+            print('ERROR: ', res.status, res.reason)
+            return None
+
         return res.read().decode('ascii', 'ignore')
 
     def get_transactions(self, start_date, **kwargs):
