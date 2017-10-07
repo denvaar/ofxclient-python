@@ -14,7 +14,7 @@ class OFXClient(object):
     """Client for making requests to an OFX server"""
 
     def __init__(self, fi, userid, userpass, *args, **kwargs):
-        
+
         resource_package = __name__
         resource_path = '/fi_data.json'
         fi_data_stream = pkg_resources.resource_stream(
@@ -27,9 +27,25 @@ class OFXClient(object):
         self.userpass = userpass
         self.acctid = kwargs.pop('acctid', None)
         self.fi = fi
-        self.server_url = self.fi_data[fi]['bootstrap_url']
+
+        if fi not in self.fi_data:
+            print("ERROR: Can't locate financial institution in fi_data.json")
+            return None
+
+        try:
+            self.server_url = self.fi_data[fi]['bootstrap_url']
+        except KeyError:
+            print("ERROR: Can't find 'bootstrap_url' in fi_data.json for financial institution "+fi)
+            return None
 
     def _build_template(self, **kwargs):
+
+        # check is all necessary keys exist
+        REQ_KEYS = {'fi_org', 'fi_id', 'app_ver', 'app_id'}
+        if not self.fi_data.keys() & REQ_KEYS:
+            print("ERROR: Can't find one of the " + REQ_KEYS + " in fi_data.json for financial institution " + self.fi)
+            return None
+
         return (
             ''.join([
                 self.ofx_templates.xml_header(),
@@ -55,12 +71,18 @@ class OFXClient(object):
     def make_request(self, data):
         """Perform OFX request to server"""
 
-        server_full_path = self.fi_data[self.fi]['bootstrap_url']
+        server_full_path = None
+        try:
+            server_full_path = self.fi_data[self.fi]['bootstrap_url']
+        except KeyError:
+            print("ERROR: Can't find 'bootstrap_url' in fi_data.json for financial institution " + self.fi)
+            return None
+
         server_fqdn = server_full_path.strip('/').split('//')[1]
-        
+
         _, path = splittype(server_full_path)
         _, selector = splithost(path)
-        
+
         h = HTTPSConnection(server_fqdn)
         h.putrequest('POST', selector, skip_host=True,
                      skip_accept_encoding=True)
@@ -68,8 +90,8 @@ class OFXClient(object):
         h.putheader('Host', server_fqdn)
         h.putheader('Content-Length', len(data))
         h.putheader('Connection', 'Keep-Alive')
-        h.endheaders(data.encode()) 
-        
+        h.endheaders(data.encode())
+
         res = h.getresponse()
 
         if res.status == 403:
