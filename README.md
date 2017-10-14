@@ -8,11 +8,26 @@ This is a Python API, and also a command-line interface for interacting with OFX
 - [API](docs/api.md)
 - [Command-line interface tool](docs/ofxclient-cli.md)
 
-# Installation
+# Requisites
 
-pip install ofxclient-python==0.0.5
+Python 3 with version >= 3.4 
 
-*TODO pyinstaller download*
+# Installation with pip
+
+`pip install ofxclient-python==0.0.5`
+
+# Installation with pyinstaller
+
+`pip install pyinstaller`
+
+Then from root repo go into ofxclient directory to create executable  
+`cd ofxclient`  
+`pyinstaller ofxclient-cli.py` 
+
+This will create a dist directory that will contains everything needed to run the program.  
+To use the program run it from this directory  
+`cd dist/ofxclient-cli`
+`ofxclient-cli`
 
 ## Development
 Just grab a copy the repository and pip install the requirements found in `requirements.txt`.
